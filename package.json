@@ -1,0 +1,70 @@
+{
+  "name": "wonderlandrpg",
+  "version": "1.0.0",
+  "description": "A dark shared-world Alice in Wonderland Twitch RPG.",
+  "main": "launcher/launcher.js",
+  "author": "Wonderland RPG",
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/bot.js",
+    "launcher": "electron launcher/launcher.js",
+    "build": "electron-builder --win",
+    "build:dir": "electron-builder --dir",
+    "build:installer": "electron-builder --win nsis"
+  },
+  "keywords": [
+    "twitch",
+    "rpg",
+    "wonderland",
+    "chatbot",
+    "twitch-bot"
+  ],
+  "dependencies": {
+    "dotenv": "^18.0.4",
+    "tmi.js": "^1.8.5"
+  },
+  "devDependencies": {
+    "electron": "^44.4.5",
+    "electron-builder": "^26.0.12",
+    "pkg": "^5.8.1"
+  },
+  "build": {
+    "appId": "com.wonderlandrpg.app",
+    "productName": "Wonderland RPG",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "launcher/**/*",
+      "src/**/*",
+      "package.json",
+      "!data/**/*",
+      "!logs/**/*",
+      "!.env",
+      "!.env.*",
+      "!**/*.log",
+      "!**/*.tmp"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Wonderland RPG",
+      "uninstallDisplayName": "Wonderland RPG",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}
