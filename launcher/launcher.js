@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, shell } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const https = require("https");
@@ -454,12 +454,27 @@ async function authorizeTwitch() {
 
   const deviceCode = response.data.device_code;
   const userCode = response.data.user_code;
+
   const verificationUri =
+    response.data.verification_uri_complete ||
     response.data.verification_uri ||
-    response.data.verification_uri_complete;
+    "https://www.twitch.tv/activate";
 
   log(`🔑 Twitch device code: ${userCode}`);
-  log(`🌐 Open this page: ${verificationUri}`);
+  log(`🌐 Opening Twitch authorization page...`);
+  log(`🌐 Authorization page: ${verificationUri}`);
+
+  try {
+    await shell.openExternal(verificationUri);
+    log("✓ Twitch authorization page opened in your default browser.");
+  } catch (error) {
+    log(
+      `⚠ Could not open the Twitch authorization page automatically: ${
+        error && error.message ? error.message : error
+      }`
+    );
+    log(`🌐 Please open this page manually: ${verificationUri}`);
+  }
 
   const pollInterval =
     Math.max(Number(response.data.interval) || 5, 5) * 1000;
