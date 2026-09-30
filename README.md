@@ -151,31 +151,31 @@ The .gitignore file is configured to exclude local credentials, player data, log
 ## Project Structure
 
 WonderlandRPG/
-├── data/
-│   └── .gitkeep
-├── dist/
-├── installer/
-├── launcher/
-│   ├── client-config.json
-│   └── launcher.js
-├── logs/
-├── src/
-│   ├── bot.js
-│   ├── combat.js
-│   ├── commands.js
-│   ├── crafting.js
-│   ├── events.js
-│   ├── game.js
-│   ├── items.js
-│   ├── players.js
-│   ├── shop.js
-│   └── world.js
-├── .env.example
-├── .gitignore
-├── LICENSE
-├── package.json
-├── package-lock.json
-└── README.md
+â”œâ”€â”€ data/
+â”‚   â””â”€â”€ .gitkeep
+â”œâ”€â”€ dist/
+â”œâ”€â”€ installer/
+â”œâ”€â”€ launcher/
+â”‚   â”œâ”€â”€ client-config.json
+â”‚   â””â”€â”€ launcher.js
+â”œâ”€â”€ logs/
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ bot.js
+â”‚   â”œâ”€â”€ combat.js
+â”‚   â”œâ”€â”€ commands.js
+â”‚   â”œâ”€â”€ crafting.js
+â”‚   â”œâ”€â”€ events.js
+â”‚   â”œâ”€â”€ game.js
+â”‚   â”œâ”€â”€ items.js
+â”‚   â”œâ”€â”€ players.js
+â”‚   â”œâ”€â”€ shop.js
+â”‚   â””â”€â”€ world.js
+â”œâ”€â”€ .env.example
+â”œâ”€â”€ .gitignore
+â”œâ”€â”€ LICENSE
+â”œâ”€â”€ package.json
+â”œâ”€â”€ package-lock.json
+â””â”€â”€ README.md
 ## Security
 
 Private Twitch credentials must never be committed to GitHub.
@@ -228,3 +228,12 @@ The following systems have been tested:
 Wonderland RPG is released under the MIT License.
 
 See the LICENSE file for the complete license text.
+## Code Signing Policy
+
+Wonderland RPG Windows releases are code signed to help users verify the authenticity and integrity of distributed binaries.
+
+Official release binaries are published through the Wonderland RPG GitHub repository and releases page.
+
+The project uses SignPath Foundation for code signing of eligible open-source releases. Signing certificates and signing services are used only for official Wonderland RPG release artifacts.
+
+Source code is publicly available in this repository so users can inspect the code corresponding to each release.
