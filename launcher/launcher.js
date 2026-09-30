@@ -71,7 +71,7 @@ function loadConfig() {
   try {
     return JSON.parse(fs.readFileSync(configFile, "utf8"));
   } catch (error) {
-    log(`❌ Could not read configuration: ${error.message}`);
+    log(`âŒ Could not read configuration: ${error.message}`);
     return null;
   }
 }
@@ -107,11 +107,11 @@ function getClientId() {
       const config = JSON.parse(raw);
 
       if (config && config.clientId) {
-        log(`✓ Twitch client configuration found: ${file}`);
+        log(`âœ“ Twitch client configuration found: ${file}`);
         return config.clientId;
       }
     } catch (error) {
-      log(`⚠ Could not read client configuration: ${error.message}`);
+      log(`âš  Could not read client configuration: ${error.message}`);
     }
   }
 
@@ -237,7 +237,7 @@ button:disabled {
 
 <body>
 <div class="header">
-  <h1>♠ Wonderland RPG</h1>
+  <h1>â™  Wonderland RPG</h1>
   <div class="subtitle">A dark shared-world Alice in Wonderland Twitch RPG</div>
 </div>
 
@@ -414,7 +414,7 @@ async function authorizeTwitch() {
   const clientId = getClientId();
 
   if (!clientId) {
-    log("❌ Twitch client ID was not found.");
+    log("âŒ Twitch client ID was not found.");
     throw new Error("Twitch client ID not found.");
   }
 
@@ -460,20 +460,20 @@ async function authorizeTwitch() {
     response.data.verification_uri ||
     "https://www.twitch.tv/activate";
 
-  log(`🔑 Twitch device code: ${userCode}`);
-  log(`🌐 Opening Twitch authorization page...`);
-  log(`🌐 Authorization page: ${verificationUri}`);
+  log(`ðŸ”‘ Twitch device code: ${userCode}`);
+  log(`ðŸŒ Opening Twitch authorization page...`);
+  log(`ðŸŒ Authorization page: ${verificationUri}`);
 
   try {
     await shell.openExternal(verificationUri);
-    log("✓ Twitch authorization page opened in your default browser.");
+    log("âœ“ Twitch authorization page opened in your default browser.");
   } catch (error) {
     log(
-      `⚠ Could not open the Twitch authorization page automatically: ${
+      `âš  Could not open the Twitch authorization page automatically: ${
         error && error.message ? error.message : error
       }`
     );
-    log(`🌐 Please open this page manually: ${verificationUri}`);
+    log(`ðŸŒ Please open this page manually: ${verificationUri}`);
   }
 
   const pollInterval =
@@ -536,12 +536,13 @@ async function authorizeTwitch() {
       saveConfig({
         clientId,
         username: user.login,
+        channel: user.login,
         displayName: user.display_name,
         accessToken,
         refreshToken
       });
 
-      log(`✅ Twitch connected as @${user.login}.`);
+      log(`âœ… Twitch connected as @${user.login}.`);
       sendStatus();
 
       return;
@@ -600,20 +601,20 @@ async function disconnectTwitch() {
     // Ignore if config is already gone.
   }
 
-  log("✓ Twitch disconnected.");
+  log("âœ“ Twitch disconnected.");
   sendStatus();
 }
 
 async function startBot() {
   if (botRunning) {
-    log("⚠ Wonderland RPG is already running.");
+    log("âš  Wonderland RPG is already running.");
     return;
   }
 
   const config = loadConfig();
 
   if (!config || !config.username || !config.accessToken) {
-    log("❌ Connect Twitch before starting Wonderland RPG.");
+    log("âŒ Connect Twitch before starting Wonderland RPG.");
     return;
   }
 
@@ -649,13 +650,13 @@ async function startBot() {
 
     botRunning = true;
 
-    log("✓ Wonderland RPG bot is running.");
+    log("âœ“ Wonderland RPG bot is running.");
     sendStatus();
   } catch (error) {
     botRunning = false;
 
     log(
-      `❌ Could not start Wonderland RPG: ${
+      `âŒ Could not start Wonderland RPG: ${
         error && error.message
           ? error.message
           : error
@@ -680,7 +681,7 @@ async function stopBot() {
     }
   } catch (error) {
     log(
-      `⚠ Error while stopping Wonderland RPG: ${
+      `âš  Error while stopping Wonderland RPG: ${
         error && error.message
           ? error.message
           : error
@@ -690,7 +691,7 @@ async function stopBot() {
 
   botRunning = false;
 
-  log("✓ Wonderland RPG bot stopped.");
+  log("âœ“ Wonderland RPG bot stopped.");
   sendStatus();
 }
 
@@ -712,7 +713,7 @@ ipcMain.on("connect-twitch", async () => {
     await authorizeTwitch();
   } catch (error) {
     log(
-      `❌ Twitch connection failed: ${
+      `âŒ Twitch connection failed: ${
         error && error.message
           ? error.message
           : error
@@ -726,7 +727,7 @@ ipcMain.on("disconnect-twitch", async () => {
     await disconnectTwitch();
   } catch (error) {
     log(
-      `❌ Twitch disconnect failed: ${
+      `âŒ Twitch disconnect failed: ${
         error && error.message
           ? error.message
           : error
