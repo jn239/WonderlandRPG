@@ -1,6 +1,6 @@
 {
   "name": "wonderlandrpg",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A dark shared-world Alice in Wonderland Twitch RPG.",
   "main": "launcher/launcher.js",
   "author": "Wonderland RPG",
